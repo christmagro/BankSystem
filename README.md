@@ -1,8 +1,8 @@
-#Bank Account Management System
+# Bank Account Management System
 
 This is a basic fully functional Rest Api Account to Account System
  
-##System Main features consist in the following:
+## System Main features consist in the following:
 
 - Basic user authentication (Using Bycrpt(11) Password)
 - Global Exception Handling
@@ -13,7 +13,7 @@ This is a basic fully functional Rest Api Account to Account System
 - List Accounts for a particular client
 - List transactions for a particular account (Including both Debit and Credit) 
 
-##Some Technologies used
+## Some Technologies used
 - Java
 - Spring Boot, Security
 - Hibernate
