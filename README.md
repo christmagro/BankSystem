@@ -30,11 +30,15 @@ This is a basic fully functional Rest Api Account to Account System
 
 
 ## Running The Application
-Once Db and Java security jar are in place running the app is very easy, just go in the project folder from terminal and execute mvn spring-boot:run
+Once Database and Java security jars are in place running the app is very easy, just go in the project folder and from the terminal execute mvn spring-boot:run
 
 ## Testing the system
-Below please find link to my Postman collection in order to run all Apis
+Prior calling all Apis go to http://localhost:8080 to login. 
+Use below credentials:
+username:user1
+password:password
 
+Below please find link to my Postman collection in order to run all Apis
 https://www.getpostman.com/collections/e69a7d2f46be361e5fbf
 
 
