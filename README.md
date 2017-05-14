@@ -34,6 +34,7 @@ Once Database and Java security jars are in place running the app is very easy, 
 
 ## Testing the system
 Prior calling all Apis go to http://localhost:8080 to login. 
+
 Use below credentials:
 username:user1
 password:password
@@ -43,4 +44,4 @@ https://www.getpostman.com/collections/e69a7d2f46be361e5fbf
 
 
 ## Contact me
-If you require any additional information please feel free to contact on christmagro@gmail.com
+If you require any additional information please feel free to contact me on christmagro@gmail.com
