@@ -2,6 +2,7 @@ package com.chris.bank.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,10 +19,11 @@ public class AccountModel {
     private Timestamp accountTimestamp;
     private double accountOverdraftLimit;
     private long accountNumber;
-    private Set<TransactionModel> transactions = new HashSet<>();
-    private Set<ClientModel> clients = new HashSet<>();
+    private Set<TransactionModel> accountDebitTransactions = new HashSet<>();
+    private Set<TransactionModel> accountCreditTransactions = new HashSet<>();
+    private ClientModel client;
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id", nullable = false)
     public long getAccountId() {
         return accountId;
@@ -127,25 +129,31 @@ public class AccountModel {
         return result;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "account_transaction", joinColumns = {
-            @JoinColumn(name = "account_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "transaction_id",
-                    nullable = false, updatable = false)})
-    public Set<TransactionModel> getTransactions() {
-        return this.transactions;
+    @OneToMany(mappedBy = "transactionDebitAccount")
+    public Set<TransactionModel> getAccountDebitTransactions() {
+        return accountDebitTransactions;
     }
 
-    public void setTransactions(Set<TransactionModel> transactions) {
-        this.transactions = transactions;
+    public void setAccountDebitTransactions(Set<TransactionModel> accountDebitTransactions) {
+        this.accountDebitTransactions = accountDebitTransactions;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "accounts")
-    public Set<ClientModel> getClients() {
-        return this.clients;
+    @OneToMany(mappedBy = "transactionDebitAccount")
+    public Set<TransactionModel> getAccountCreditTransactions() {
+        return accountCreditTransactions;
     }
 
-    public void setClients(Set<ClientModel> clients) {
-        this.clients = clients;
+    public void setAccountCreditTransactions(Set<TransactionModel> accountCreditTransactions) {
+        this.accountCreditTransactions = accountCreditTransactions;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id", nullable = false)
+    public ClientModel getClient() {
+        return client;
+    }
+
+    public void setClient(ClientModel client) {
+        this.client = client;
     }
 }

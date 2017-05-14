@@ -15,10 +15,10 @@ public class ClientModel {
     private String clientName;
     private String clientSurname;
     private Date clientDob;
-    private Set<AccountModel> accounts = new HashSet<>();
-    private Set<AddressModel> addresses = new HashSet<>();
+    private Set<AccountModel> accounts = new HashSet<>(0);
+    private Set<AddressModel> addresses = new HashSet<>(0);
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "client_id", nullable = false)
     public long getClientId() {
         return clientId;
@@ -83,13 +83,9 @@ public class ClientModel {
         return result;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "client_account", joinColumns = {
-            @JoinColumn(name = "client_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "account_id",
-                    nullable = false, updatable = false)})
+    @OneToMany(mappedBy = "client")
     public Set<AccountModel> getAccounts() {
-        return this.accounts;
+        return accounts;
     }
 
     public void setAccounts(Set<AccountModel> accounts) {

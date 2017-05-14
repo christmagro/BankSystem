@@ -16,9 +16,9 @@ public class AddressModel {
     private String addressCity;
     private String addressCounty;
     private boolean addressPrimary;
-    private Set<ClientModel> clients = new HashSet<>();
+    private Set<ClientModel> clients = new HashSet<>(0);
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id", nullable = false)
     public long getAddressId() {
         return addressId;

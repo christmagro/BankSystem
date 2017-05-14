@@ -13,7 +13,7 @@ public class UserAccountModel {
     private String userPassword;
     private boolean userEnable;
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     public long getUserId() {
         return userId;

@@ -52,40 +52,39 @@ CREATE TABLE account (
   `account_type`            VARCHAR(10) NOT NULL,
   `account_balance`         DOUBLE      NOT NULL DEFAULT '0',
   `account_balance_status`  VARCHAR(2)  NOT NULL,
-  `account_timestamp`       DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `account_timestamp`       DATETIME    NOT NULL,
   `account_overdraft_limit` DOUBLE      NOT NULL DEFAULT '0',
+  `client_id`               BIGINT(11)  NOT NULL,
   PRIMARY KEY (`account_id`),
+  KEY `cleint_id_account_idx` (`client_id`),
+  CONSTRAINT `account_client_id` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   UNIQUE INDEX `account_id_UNIQUE` (`account_id` ASC),
   UNIQUE INDEX `account_number_UNIQUE` (`account_number` ASC)
 );
 
 #Transaction Table
-CREATE TABLE transaction (
-  `transaction_id`        BIGINT(11)  NOT NULL AUTO_INCREMENT,
-  `transaction_direction` VARCHAR(2)  NOT NULL,
-  `transaction_amount`    DOUBLE      NOT NULL,
-  `transaction_message`   VARCHAR(45) NULL,
-  `transaction_created`   DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE `transaction` (
+  `transaction_id`             BIGINT(11) NOT NULL AUTO_INCREMENT,
+  `transaction_debit_account`  BIGINT(11) NOT NULL,
+  `transaction_credit_account` BIGINT(11) NOT NULL,
+  `transaction_amount`         DOUBLE     NOT NULL,
+  `transaction_message`        VARCHAR(45)         DEFAULT NULL,
+  `transaction_created`        DATETIME   NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`transaction_id`),
-  UNIQUE INDEX `transaction_id_UNIQUE` (`transaction_id` ASC)
-);
-
-#Linking table that will contain both direction of the transfers
-CREATE TABLE `account_transaction` (
-  `account_id`     BIGINT(11) NOT NULL,
-  `transaction_id` BIGINT(11) NOT NULL,
-  PRIMARY KEY (`account_id`, `transaction_id`),
-  KEY `account_transaction_account_id_idx` (`account_id`),
-  KEY `account_transaction_transaction_id_idx` (`transaction_id`),
-  CONSTRAINT `account_transaction_account_id` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
+  UNIQUE KEY `transaction_id_UNIQUE` (`transaction_id`),
+  KEY `Transaction_debit_account_account_id_idx` (`transaction_debit_account`),
+  KEY `Transaction_credit_account_id_idx` (`transaction_credit_account`),
+  CONSTRAINT `Transaction_credit_account_id` FOREIGN KEY (`transaction_credit_account`) REFERENCES `account` (`account_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `account_transaction_transaction_id` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`transaction_id`)
+  CONSTRAINT `Transaction_debit_account_account_id` FOREIGN KEY (`transaction_debit_account`) REFERENCES `account` (`account_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 
-#Linking table that can contain more then one account for the client
+/*#Linking table that can contain more then one account for the client
 CREATE TABLE `client_account` (
   `client_id`  BIGINT(11) NOT NULL,
   `account_id` BIGINT(11) NOT NULL,
@@ -98,4 +97,4 @@ CREATE TABLE `client_account` (
   CONSTRAINT `client_account_client_id` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-);
+);*/

@@ -2,8 +2,6 @@ package com.chris.bank.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Christian Magro on 13/05/2017.
@@ -12,13 +10,13 @@ import java.util.Set;
 @Table(name = "transaction")
 public class TransactionModel {
     private long transactionId;
-    private String transactionDirection;
     private double transactionAmount;
     private String transactionMessage;
     private Timestamp transactionCreated;
-    private Set<AccountModel> accounts = new HashSet<>();
+    private AccountModel transactionDebitAccount;
+    private AccountModel transactionCreditAccount;
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "transaction_id", nullable = false)
     public long getTransactionId() {
         return transactionId;
@@ -26,16 +24,6 @@ public class TransactionModel {
 
     public void setTransactionId(long transactionId) {
         this.transactionId = transactionId;
-    }
-
-    @Basic
-    @Column(name = "transaction_direction", nullable = false, length = 2)
-    public String getTransactionDirection() {
-        return transactionDirection;
-    }
-
-    public void setTransactionDirection(String transactionDirection) {
-        this.transactionDirection = transactionDirection;
     }
 
     @Basic
@@ -77,8 +65,8 @@ public class TransactionModel {
 
         if (transactionId != that.transactionId) return false;
         if (Double.compare(that.transactionAmount, transactionAmount) != 0) return false;
-        if (transactionDirection != null ? !transactionDirection.equals(that.transactionDirection) : that.transactionDirection != null)
-            return false;
+        if (transactionDebitAccount != that.transactionDebitAccount) return false;
+        if (transactionCreditAccount != that.transactionCreditAccount) return false;
         if (transactionMessage != null ? !transactionMessage.equals(that.transactionMessage) : that.transactionMessage != null)
             return false;
         if (transactionCreated != null ? !transactionCreated.equals(that.transactionCreated) : that.transactionCreated != null)
@@ -92,7 +80,6 @@ public class TransactionModel {
         int result;
         long temp;
         result = (int) (transactionId ^ (transactionId >>> 32));
-        result = 31 * result + (transactionDirection != null ? transactionDirection.hashCode() : 0);
         temp = Double.doubleToLongBits(transactionAmount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (transactionMessage != null ? transactionMessage.hashCode() : 0);
@@ -100,12 +87,25 @@ public class TransactionModel {
         return result;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "transactions")
-    public Set<AccountModel> getAccounts() {
-        return this.accounts;
+    @ManyToOne
+    @JoinColumn(name = "transaction_debit_account", referencedColumnName = "account_id", nullable = false)
+    public AccountModel getTransactionDebitAccount() {
+        return transactionDebitAccount;
     }
 
-    public void setAccounts(Set<AccountModel> accounts) {
-        this.accounts = accounts;
+    public void setTransactionDebitAccount(AccountModel transactionDebitAccount) {
+        this.transactionDebitAccount = transactionDebitAccount;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "transaction_credit_account", referencedColumnName = "account_id", nullable = false)
+    public AccountModel getTransactionCreditAccount() {
+        return transactionCreditAccount;
+    }
+
+    public void setTransactionCreditAccount(AccountModel transactionCreditAccount) {
+        this.transactionCreditAccount = transactionCreditAccount;
     }
 }
+
+
