@@ -26,7 +26,7 @@ This is a basic fully functional Rest Api Account to Account System
 ## Prerequisites prior running the application
 - Create a new Schema in MySql called bank_system (this can be changed in application.properties)
 - Create a new database user called bankUser and with password password (different credentials can be used as long as the application.properties database config are changed)
-- VERY IMPORTANT the system does not expose any database ids since all exposed ids are encoded, thus is is crucial to copy local_policy.jar & US_Export_policy.jar (located in this project in JRE_Security folder) and paste both files in your JRE Security Folder (On my mac it is located in /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/security/)
+- VERY IMPORTANT the system does not expose any database ids since all exposed ids are encoded, thus it is crucial to copy local_policy.jar & US_Export_policy.jar (located in this project in JRE_Security folder) and paste both files in your JRE Security Folder (On my mac it is located in /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/security/)
 
 
 ## Running The Application
