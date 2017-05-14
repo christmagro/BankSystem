@@ -35,7 +35,7 @@ Once Database and Java security jars are in place running the app is very easy, 
 ## Testing the system
 Prior calling all Apis go to http://localhost:8080 to login. 
 
-Use below credentials:
+Credentials:
 username:user1
 password:password
 
