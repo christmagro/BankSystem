@@ -35,8 +35,8 @@ This is a basic fully functional Rest Api Account to Account System
 
 ## Credentials:
 In order to access api basic authentication is required using the below credentials
-username:user1
-password:password
+- Username: user1
+- Password: password
 
 Below please find link to my Postman collection in order to run all Apis
 https://www.getpostman.com/collections/5d7b1f2d0cc71fd97c36
