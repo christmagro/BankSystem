@@ -24,24 +24,21 @@ This is a basic fully functional Rest Api Account to Account System
 
 
 ## Prerequisites prior running the application
-- Create a new Schema in MySql called bank_system (this can be changed in application.properties)
-- Create a new database user called bankUser and with password password (different credentials can be used as long as the application.properties database config are changed)
-- VERY IMPORTANT the system does not expose any database ids since all exposed ids are encoded, thus it is crucial to copy local_policy.jar & US_Export_policy.jar (located in this project in JRE_Security folder) and paste both files in your JRE Security Folder (On my mac it is located in /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/security/)
-
+- Docker is required to run the application
 
 ## Running The Application
-Once Database and Java security jars are in place running the app is very easy, just go in the project folder and from the terminal execute mvn spring-boot:run
+- Go in the project folder and from the terminal execute mvn clean package docker:build
+- Then execute docker-compose up in order to start MySQL DB and Application containers
+- All APIs can be accesses using http://localhost:8080/
 
-## Testing the system
-Prior calling all Apis go to http://localhost:8080 to login. 
 
-Credentials:
+#Credentials:
+In order to access api basic authentication is required using the below credentials
 username:user1
 password:password
 
 Below please find link to my Postman collection in order to run all Apis
-https://www.getpostman.com/collections/e69a7d2f46be361e5fbf
-
+https://www.getpostman.com/collections/5d7b1f2d0cc71fd97c36
 
 ## Contact me
 If you require any additional information please feel free to contact me on christmagro@gmail.com

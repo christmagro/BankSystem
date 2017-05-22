@@ -1,0 +1,24 @@
+version: '2.1'
+
+services:
+  bank-mysql:
+    image: mysql:latest
+    ports:
+          - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=bank_system
+      - MYSQL_USER=bankUser
+      - MYSQL_PASSWORD=password
+  spring-boot-bank-system:
+    image: cmagro/bank_system
+    depends_on:
+      - bank-mysql
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=bank-mysql
+      - DATABASE_USER=bankUser
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=bank_system
+      - DATABASE_PORT=3306
