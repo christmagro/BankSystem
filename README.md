@@ -21,6 +21,7 @@ This is a basic fully functional Rest Api Account to Account System
 - FlyWay
 - Orika
 - Lombok
+- Docker
 
 
 ## Prerequisites prior running the application
@@ -32,7 +33,7 @@ This is a basic fully functional Rest Api Account to Account System
 - All APIs can be accesses using http://localhost:8080/
 
 
-#Credentials:
+##Credentials:
 In order to access api basic authentication is required using the below credentials
 username:user1
 password:password
