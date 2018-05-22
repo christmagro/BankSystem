@@ -30,7 +30,7 @@ This is a basic fully functional Rest Api Account to Account System
 ## Running The Application
 - Go in the project folder and from the terminal execute mvn clean package docker:build
 - Then execute docker-compose up in order to start MySQL DB and Application containers
-- All APIs can be accesses using http://localhost:8080/
+- All APIs can be accessed using http://localhost:8080/
 
 
 ## Credentials:
